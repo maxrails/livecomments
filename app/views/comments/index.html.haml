@@ -1,0 +1,25 @@
+- model_class = @comment.class
+%h1=t '.title', :default => model_class.model_name.human.pluralize
+= form_for @comment, :html => { :class => 'form-horizontal' }, :remote => true do |f|
+  .control-group
+    = f.label 'Your message:', :class => 'control-label'
+    .controls
+      = f.text_area :body, :class => 'text_area', :size=>"10x2"
+  .form-actions
+    = f.submit nil, :class => 'btn btn-primary comment-button'
+    =# link_to t('.cancel', :default => t("helpers.links.cancel")), comments_path, :class => 'btn'
+
+- model_class = Comment.new.class
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:message)
+      %th= model_class.human_attribute_name(:sent_at)
+      %th=t '.actions', :default => t("helpers.actions")
+  %tbody
+    - @comments.each do |comment|
+      %tr
+        %td= sanitize comment.body
+        %td=comment.created_at.civil
+        %td
+          = link_to t('.destroy', :default => t("helpers.links.destroy")), comment_path(comment), :method => :delete, :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-mini btn-danger'

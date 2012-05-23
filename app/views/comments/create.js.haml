@@ -1,0 +1,7 @@
+-if @comment
+  $('#notifications_place').append("<div class='alert alert-success'><button class='close' data-dismiss='alert'>×</button><strong>Successfully created new message: #{@comment.body}</strong></div>");
+  $('#comment_body').attr('disabled', 'disabled');
+  $('#comment_body').val('');
+  setTimeout(function(){$('#comment_body').css('background','#ffffff')},2000);
+  $('#comment_body').css('background','#f5f5f5');
+  $('#comment_body').removeAttr("disabled").delay(3000);
